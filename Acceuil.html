@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <div class="nav">
+        <h1>chronosPresence</h1>
+        <div class="menu">
+            <a href="#" class="active">
+                dashboard
+            </a>
+            <a href="Employe.html">
+                employes
+            </a>
+            <a href="">
+                journal
+            </a>
+            <a href="">
+                ajouter
+            </a>
+        </div>
+        <div class="profil">
+            <div class="toff">
+
+            </div>
+            <div class="name">
+                <p>ANDY TAMKAM</p>
+                <P>administracteur</P>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="main">
+        <div class="nav_bar">
+            <h4>TABLEAU DE bord</h4>
+            <p>date du jour </p>
+        </div>
+        <div class="principe">
+            <div class="box">
+                <div class="first">
+                    <h4>TOTAL DE PRESENT</h4>
+                    <p>16</p>
+                </div>
+                <div class="first">
+                    <p>PRESENT</p>
+                    <p>16</p>
+                </div>
+                <div class="first">
+                    <p>en retard</p>
+                    <p>125h</p>
+                </div>
+                <div class="first">
+                    <p>taux de retard</p>
+                    <p>27%</p>
+
+                </div>
+            </div>
+            <div class="tableau">
+                <div class="head">
+                    <div class="">
+                        <h2>ACTIVITES RECENTES</h2>
+                    </div>
+                    <div class="">
+                        <button id="exporter">exporter</button>
+                        <button id="all_view">voir tout</button>
+                    </div>
+                </div>
+                <table>
+                    <thead class="table-header">
+                        <tr>
+
+                            <td>EMPLOYER</td>
+                            <td>heure darrive</td>
+                            <td>horaire</td>
+                            <td>status</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="employe">
+                                <img src="images.jpg" alt="" srcset="">
+                                <div class="nom">
+                                    <h1>Dr TAMKAM</h1>
+                                    <p>consultant IA</p>
+                                </div>
+                            </td>
+                            <td>
+                                5h:45min
+                            </td>
+                            <td>
+                                8h
+                            </td>
+                            <td><span>a lheure</span></td>
+                        </tr>
+                        <tr>
+                            <td class="employe">
+                                <img src="images.jpg" alt="" srcset="">
+                                <div class="nom">
+                                    <h1>Dr TAMKAM</h1>
+                                    <p>consultant IA</p>
+                                </div>
+                            </td>
+                            <td>
+                                5h:45min
+                            </td>
+                            <td>
+                                8h
+                            </td>
+                            <td><span>a lheure</span></td>
+                        </tr>
+                        <tr>
+                            <td class="employe">
+                                <img src="images.jpg" alt="" srcset="">
+                                <div class="nom">
+                                    <h1>Dr TAMKAM</h1>
+                                    <p>consultant IA</p>
+                                </div>
+                            </td>
+                            <td>
+                                5h:45min
+                            </td>
+                            <td>
+                                8h
+                            </td>
+                            <td><span id="span">en retard</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <style>
+                body {
+                    margin: 0;
+                    display: flex;
+                    min-height: 100vh;
+                    font-family: Arial, Helvetica, sans-serif;
+                    background-color: #b3b2b2;
+                }
+
+                th {
+                    background-color: #ad9c9c;
+                }
+
+                .mennu {
+                    background-color: #ad9c9c;
+                    width: 100%;
+                }
+
+                .head {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+
+                .p {
+                    border: 2px solid #b3b2b2;
+                    flex: 1;
+                }
+
+                .nav {
+                    width: 220px;
+                    min-height: 100vh;
+                    background: white;
+                    display: flex;
+                    flex-direction: column;
+                    padding: 25px;
+                    box-shadow: 2px 0 10px #ad9c9c;
+
+                    z-index: 5px;
+                }
+
+                h1 {
+                    color: blue;
+                    font-size: 20px;
+
+                }
+
+                a {
+                    cursor: pointer;
+                    padding: 20px;
+                    border-radius: 20px;
+                    background-color: rgb(247, 245, 248);
+                    text-decoration: none;
+
+                }
+
+                .menu {
+                    display: grid;
+                    gap: 10px;
+                }
+
+                a:hover {
+                    background-color: orange;
+                }
+
+                .profil {
+                    display: flex;
+                    background-color: #eee1e1;
+                    padding: 3px;
+                    border-radius: 10px;
+                    margin-top: 200px;
+                }
+
+                .toff {
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    background: #d682b3;
+                }
+
+                .name {
+                    background-color: #eee1e1;
+                }
+
+                .nav_bar {
+                    height: 80px;
+                    background: white;
+                    border-bottom: 1px solid #968b8b;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0 30px;
+                }
+
+                h1 {
+                    padding-left: 12px;
+                }
+
+                .main {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .principe {
+                    background-color: rgb(221, 217, 213);
+                    height: 100vh;
+                    width: 1000px;
+                    display: contents;
+                    gap: 10px;
+                }
+
+                .first {
+                    background-color: rgb(255, 255, 255);
+                    padding: 50px;
+                    border-radius: 20px;
+                    height: 20px;
+                    margin-left: 55px;
+                    justify-items: center;
+                    align-items: center;
+                }
+
+                .tableau {
+                    background-color: rgb(252, 249, 245);
+                    border-radius: 10px;
+                    padding: 30px;
+                    margin: 50px;
+                    height: 380px;
+
+
+
+
+                }
+
+                .box {
+                    padding: 10px;
+                    display: flex;
+                    gap: 10px;
+                    font-size: 11px;
+                }
+
+                .btn {
+                    margin-left: 50px;
+                }
+
+                tr:hover {
+                    background-color: aquamarine;
+                }
+
+                #span {
+                    background-color: #968b8b;
+                }
+
+                #all_view {
+                    background-color: rgb(17, 17, 75);
+                    border-radius: 15px;
+                    padding: 8px;
+                    cursor: pointer;
+
+                }
+
+                #exporter {
+                    background-color: #b3b2b2;
+                    border-radius: 15px;
+                    padding: 8px;
+                    cursor: pointer;
+                }
+
+                span {
+                    background-color: greenyellow;
+                    padding: 10px;
+                    border-radius: 15px;
+                }
+
+                img {
+                    width: 55px;
+                    height: 55px;
+                    object-fit: cover;
+                    border-radius: 50%;
+                    cursor: pointer;
+                }
+
+                .employe {
+                    display: flex;
+
+                }
+
+                .nom {
+                    justify-items: center;
+                    align-items: center;
+
+                }
+
+                .table-header {
+                    background-color: #b3b2b2;
+                }
+
+                table {
+                    width: 100%;
+                }
+            </style>
+            <script>
+
+            </script>
+</body>
+
+</html>
