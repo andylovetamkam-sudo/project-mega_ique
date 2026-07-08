@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOURNAL</title>
+</head>
+
+<body>
+    <div class="first">
+        <div class="a">
+             <p>bonjour</p>
+
+        </div>
+        <div class="b">
+            <p>bonjour</p>
+        </div>
+    </div>
+    <div class="second">
+        <table>
+
+                <thead>
+                    <tr>
+                        <th>Employé</th>
+                        <th>Poste</th>
+                        <th>Statut</th>
+                        <th>Heure</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Dr TAMKAM</td>
+                        <td>Chef de Projet</td>
+                        <td><span class="present">Présent</span></td>
+                        <td>08:42</td>
+                        <td>⋮</td>
+                    </tr>
+
+                    <tr>
+                        <td>Mr CHRISTIAN</td>
+                        <td>Analyste</td>
+                        <td><span class="retard">Retard</span></td>
+                        <td>09:15</td>
+                        <td>⋮</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+    </div>
+    <style>
+        body{
+            margin: 0;
+            height: 100vh;
+            display: grid;
+            place-items: center;
+                            background-color: rgb(202, 203, 204);
+
+
+            
+        }
+        .first{
+            display: flex;
+            gap: 30px;
+            background-color: rgb(202, 203, 204);
+            padding: 20px;
+        }
+        .a{
+            background-color: rgb(255, 255, 255);
+            padding: 50px;
+            width: 150px;
+            padding-bottom: 20px;
+            border-radius: 12px;
+
+
+        }
+        .b{
+            background-color: rgb(37, 22, 121);
+            padding: 50px;
+             width: 150px;
+             padding-bottom: 10px;
+             border-radius: 12px;
+             color: #fff;
+
+        }
+        .second{
+            background-color: rgb(194, 196, 197);
+        }
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    padding:18px;
+        text-align:left;
+
+}
+
+td{
+    padding:20px 18px;
+    border-top:1px solid #bdb9b9;
+                background-color: rgb(255, 255, 255);
+
+
+}
+
+.present{
+    background:#d6f7df;
+    color:green;
+    padding:8px 16px;
+    border-radius:20px;
+}
+
+.retard{
+    background:#ffe2e2;
+    color:red;
+    padding:8px 16px;
+    border-radius:20px;
+}
+</style>
+
+</body>
+
+</html>

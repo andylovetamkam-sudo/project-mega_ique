@@ -1,71 +1,258 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChronosPresence</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
 
     <style>
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-        }
+       *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
 
-        body{
-            font-family:Arial, Helvetica, sans-serif;
-            background:#f5f5f5;
-            display: flex;
-            color: #333;
-            padding: 20px;
-            min-height: 100vh;
-        }
-        .navbar{
-            background-color: #d3d2d2;
-            width: 100%;
-            height: 100px;   
-            display: flex;
-            justify-content: space-between;
-            align-items: center;   
-            color: #333;    
-            padding: 0 30px;
-            border-radius: 10px;
-        }
-        input{
-            border-radius: 20px;
-            border: solid 1px #ccc;
-            padding: 10px 20px;
-            cursor:pointer;
-            font-size: 14px;
-        }
-        .main{
-            flex: 1;
-            padding: 20px;
-            width: 100%;
-        }
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            .navbar {
-                flex-direction: column;
-                height: auto;
-                padding: 20px;
-                gap: 10px;
-            }
-            input {
-                width: 100%;
-            }
-        }
+body{
+    background:#f5f6fa;
+}
+
+
+.navbar{
+    height:80px;
+    background:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 40px;
+    border-bottom:1px solid #ddd;
+}
+
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.nav-right input{
+    width:280px;
+    padding:12px 18px;
+    border:none;
+    background:#f2f2f2;
+    border-radius:30px;
+}
+
+.nav-right button{
+    border:none;
+    background:white;
+    font-size:20px;
+    cursor:pointer;
+}
+
+
+.container{
+    width:95%;
+    margin:30px auto;
+}
+
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
+    padding:25px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.card h4{
+    margin-bottom:20px;
+    color:#555;
+}
+
+.card h2{
+    font-size:40px;
+}
+
+
+.table-box{
+    margin-top:30px;
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.table-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px;
+}
+
+.left{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.left button{
+    padding:10px 18px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    background:white;
+    cursor:pointer;
+}
+
+.add{
+    background:#132b8d;
+    color:white;
+    padding:12px 25px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    text-align:left;
+    background:#f8f8f8;
+    padding:18px;
+}
+
+td{
+    padding:20px 18px;
+    border-top:1px solid #eee;
+}
+
+.present{
+    background:#d6f7df;
+    color:green;
+    padding:8px 16px;
+    border-radius:20px;
+}
+
+.retard{
+    background:#ffe2e2;
+    color:red;
+    padding:8px 16px;
+    border-radius:20px;
+}
     </style>
+
 </head>
 
 <body>
-    <div class="main">
-        <div class="navbar">
-            <h2>LISTE DU PERSONEL</h2>
-            <input type="text" placeholder="RECHERCHER">
+
+
+    <header class="navbar">
+        <h1>Liste du Personnel</h1>
+
+        <div class="nav-right">
+            <input type="text" placeholder="Rechercher... ">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <button>🔔</button>
+            <button>⚙️</button>
         </div>
-    </div>
+    </header>
+
+    <main class="container">
+
+        <section class="cards">
+
+            <div class="card">
+                <h4>Total employés</h4>
+                <h2>124</h2>
+                <p>+3 ce mois</p>
+            </div>
+
+            <div class="card">
+                <h4>Présents</h4>
+                <h2>112</h2>
+                <p>90.3%</p>
+            </div>
+
+            <div class="card">
+                <h4>En retard</h4>
+                <h2>5</h2>
+                <p>Attention</p>
+            </div>
+
+            <div class="card">
+                <h4>Absences</h4>
+                <h2>7</h2>
+                <p>Justifiées</p>
+            </div>
+
+        </section>
+
+        <section class="table-box">
+
+            <div class="table-header">
+
+                <div class="left">
+                    <button>Filtres</button>
+                    <button>Exporter</button>
+                    <span>124 employés affichés</span>
+                </div>
+
+                <button class="add">
+                    + Nouvel Employé
+                </button>
+
+            </div>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Employé</th>
+                        <th>Poste</th>
+                        <th>Statut</th>
+                        <th>Heure</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Dr TAMKAM</td>
+                        <td>Chef de Projet</td>
+                        <td><span class="present">Présent</span></td>
+                        <td>08:42</td>
+                        <td>⋮</td>
+                    </tr>
+
+                    <tr>
+                        <td>Mr CHRISTIAN</td>
+                        <td>Analyste</td>
+                        <td><span class="retard">Retard</span></td>
+                        <td>09:15</td>
+                        <td>⋮</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+
 </body>
+
+</body>
+
 </html>
