@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChronosPresence</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -12,140 +13,256 @@
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f5f5;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f0f2f5;
             display: flex;
             min-height: 100vh;
-            color: #333;
+            color: #1a1a2e;
         }
 
-        /* Sidebar */
+        /* ===== SIDEBAR ===== */
         .sidebar {
-            width: 220px;
+            width: 240px;
             min-height: 100vh;
-            background: white;
+            background: #ffffff;
             display: flex;
             flex-direction: column;
-            padding: 25px 20px;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            padding: 28px 18px;
+            box-shadow: 2px 0 12px rgba(0, 0, 0, 0.06);
             position: sticky;
             top: 0;
             height: 100vh;
             overflow-y: auto;
             flex-shrink: 0;
             z-index: 10;
+            border-right: 1px solid #eef0f4;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 35px;
+            padding-left: 8px;
+        }
+
+        .sidebar-logo .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, #2c3e7a, #4a6fa5);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
         }
 
         .sidebar h1 {
+            color: #1a1a2e;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .sidebar h1 span {
             color: #2c3e7a;
-            font-size: 20px;
-            margin-bottom: 30px;
-            text-align: center;
         }
 
         .sidebar .menu {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 4px;
             flex: 1;
+        }
+
+        .sidebar .menu-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #9aa0b4;
+            letter-spacing: 1px;
+            padding: 12px 12px 8px;
+            font-weight: 600;
         }
 
         .sidebar .menu a {
             cursor: pointer;
             padding: 12px 16px;
-            border-radius: 20px;
-            background-color: #f5f5f8;
+            border-radius: 12px;
             text-decoration: none;
-            color: #333;
-            transition: all 0.3s ease;
+            color: #5a6072;
+            transition: all 0.2s ease;
             font-size: 14px;
             font-weight: 500;
-        }
-
-        .sidebar .menu a:hover {
-            background-color: orange;
-            transform: translateX(5px);
-        }
-
-        .sidebar .menu a.active {
-            background-color: #2c3e7a;
-            color: white;
-        }
-
-        .profil {
             display: flex;
             align-items: center;
             gap: 12px;
-            background-color: #eee1e1;
-            padding: 10px;
-            border-radius: 10px;
+        }
+
+        .sidebar .menu a i {
+            width: 20px;
+            font-size: 16px;
+            color: #9aa0b4;
+            transition: color 0.2s;
+        }
+
+        .sidebar .menu a:hover {
+            background: #f0f2f8;
+            color: #1a1a2e;
+        }
+
+        .sidebar .menu a:hover i {
+            color: #2c3e7a;
+        }
+
+        .sidebar .menu a.active {
+            background: #2c3e7a;
+            color: white;
+            box-shadow: 0 4px 12px rgba(44, 62, 122, 0.25);
+        }
+
+        .sidebar .menu a.active i {
+            color: white;
+        }
+
+        .sidebar .profil {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: #f8f9fc;
+            padding: 14px 16px;
+            border-radius: 14px;
             margin-top: auto;
+            border: 1px solid #eef0f4;
         }
 
-        .profil .toff {
-            width: 45px;
-            height: 45px;
+        .sidebar .profil .avatar {
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
-            background: #d682b3;
+            background: linear-gradient(135deg, #2c3e7a, #4a6fa5);
             flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
         }
 
-        .profil .name p {
+        .sidebar .profil .info p {
             font-size: 12px;
             margin: 0;
+            color: #9aa0b4;
         }
 
-        .profil .name p:first-child {
-            font-weight: bold;
+        .sidebar .profil .info p:first-child {
+            font-weight: 600;
             font-size: 13px;
+            color: #1a1a2e;
         }
 
-        /* Contenu principal */
+        /* ===== MAIN CONTENT ===== */
         .main-content {
             flex: 1;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            background: #f0f2f5;
         }
 
-        /* Barre de navigation */
+        /* ===== NAV BAR ===== */
         .nav_bar {
-            height: 80px;
-            background: white;
-            border-bottom: 1px solid #968b8b;
+            height: 72px;
+            background: #ffffff;
+            border-bottom: 1px solid #eef0f4;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 30px;
+            padding: 0 35px;
             flex-shrink: 0;
         }
 
-        .nav_bar h4 {
-            font-size: 18px;
-            color: #333;
+        .nav_bar .left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
         }
 
-        .nav_bar p {
-            color: #777;
+        .nav_bar .left h4 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a1a2e;
+            letter-spacing: -0.3px;
+        }
+
+        .nav_bar .left .badge {
+            background: #2c3e7a;
+            color: white;
+            font-size: 10px;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .nav_bar .right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav_bar .right .date {
+            color: #5a6072;
             font-size: 14px;
         }
 
-        /* Frame */
+        .nav_bar .right .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #e8f5e9;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #2e7d32;
+            font-weight: 500;
+        }
+
+        .nav_bar .right .status .dot {
+            width: 8px;
+            height: 8px;
+            background: #4caf50;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        /* ===== FRAME ===== */
         .frame-container {
             flex: 1;
-            background: #f0efef;
+            background: #f0f2f5;
             overflow: hidden;
+            padding: 24px 28px 28px 28px;
         }
 
         .frame-container iframe {
             width: 100%;
             height: 100%;
-            min-height: calc(100vh - 80px);
+            min-height: calc(100vh - 72px - 52px);
             border: none;
+            border-radius: 16px;
+            background: white;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
             display: block;
         }
 
-        /* Responsive */
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             body {
                 flex-direction: column;
@@ -157,22 +274,29 @@
                 height: auto;
                 flex-direction: row;
                 flex-wrap: wrap;
-                padding: 15px;
-                gap: 10px;
+                padding: 14px 18px;
+                gap: 8px;
                 position: relative;
+                border-right: none;
+                border-bottom: 1px solid #eef0f4;
             }
 
-            .sidebar h1 {
-                width: 100%;
-                margin-bottom: 10px;
-                font-size: 18px;
+            .sidebar-logo {
+                margin-bottom: 0;
+                padding-left: 0;
+                width: auto;
             }
 
             .sidebar .menu {
                 flex-direction: row;
                 flex-wrap: wrap;
-                gap: 5px;
+                gap: 4px;
                 width: 100%;
+                order: 3;
+            }
+
+            .sidebar .menu-label {
+                display: none;
             }
 
             .sidebar .menu a {
@@ -180,85 +304,150 @@
                 font-size: 13px;
             }
 
-            .profil {
-                margin-top: 0;
-                width: 100%;
+            .sidebar .menu a i {
+                font-size: 14px;
             }
 
-            .frame-container iframe {
-                min-height: 500px;
+            .sidebar .profil {
+                margin-top: 0;
+                padding: 10px 14px;
+                width: auto;
+                order: 2;
+            }
+
+            .sidebar .profil .info p:first-child {
+                font-size: 12px;
             }
 
             .nav_bar {
                 flex-direction: column;
                 height: auto;
-                padding: 15px;
-                gap: 5px;
+                padding: 14px 20px;
+                gap: 6px;
                 text-align: center;
+            }
+
+            .nav_bar .right {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .frame-container {
+                padding: 12px;
+            }
+
+            .frame-container iframe {
+                min-height: 500px;
+                border-radius: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar .menu a {
+                font-size: 11px;
+                padding: 6px 10px;
+            }
+
+            .sidebar .menu a i {
+                font-size: 12px;
+            }
+
+            .nav_bar .left h4 {
+                font-size: 16px;
+            }
+
+            .sidebar .profil .avatar {
+                width: 34px;
+                height: 34px;
+                font-size: 14px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- SIDEBAR -->
+
+    <!-- ===== SIDEBAR ===== -->
     <div class="sidebar">
-        <h1>chronosPresence</h1>
-        <div class="menu">
-            <a href="#" class="active" data-page="dashboard">dashboard</a>
-            <a href="#" data-page="employe">employes</a>
-            <a href="#" data-page="journal">journal</a>
-            <a href="#" data-page="ajouter">ajouter</a>
+        <div class="sidebar-logo">
+            <div class="logo-icon"><i class="fas fa-clock"></i></div>
+            <h1>Chronos<span>Presence</span></h1>
         </div>
+
+        <div class="menu">
+            <div class="menu-label">Navigation</div>
+            <a href="#" class="active" data-page="dashboard">
+                <i class="fas fa-chart-pie"></i> Tableau de bord
+            </a>
+            <a href="#" data-page="employe">
+                <i class="fas fa-users"></i> Employés
+            </a>
+            <a href="#" data-page="journal">
+                <i class="fas fa-book"></i> Journal
+            </a>
+            <a href="#" data-page="ajouter">
+                <i class="fas fa-user-plus"></i> Ajouter
+            </a>
+        </div>
+
         <div class="profil">
-            <div class="toff"></div>
-            <div class="name">
-                <p>ANDY TAMKAM</p>
-                <p>administracteur</p>
+            <div class="avatar"><i class="fas fa-user"></i></div>
+            <div class="info">
+                <p>Andy Tamkam</p>
+                <p><i class="fas fa-shield-alt" style="font-size:10px;margin-right:4px;"></i> Administrateur</p>
             </div>
         </div>
     </div>
 
-    <!-- CONTENU PRINCIPAL -->
+    <!-- ===== MAIN CONTENT ===== -->
     <div class="main-content">
         <div class="nav_bar">
-            <h4 id="pageTitle">TABLEAU DE bord</h4>
-            <p id="todayDate">date du jour</p>
+            <div class="left">
+                <h4 id="pageTitle">Tableau de bord</h4>
+                <span class="badge">v2.0</span>
+            </div>
+            <div class="right">
+                <span class="date" id="todayDate"><i class="far fa-calendar-alt" style="margin-right:6px;"></i> Lundi 23 Octobre 2023</span>
+                <span class="status">
+                    <span class="dot"></span>
+                    <i class="fas fa-wifi"></i> Capteur : Connecté
+                </span>
+            </div>
         </div>
+
         <div class="frame-container">
             <iframe id="contentFrame" src="dashboard.html"></iframe>
         </div>
     </div>
 
     <script>
-        // Date du jour
+        // ===== DATE =====
         function updateDate() {
             const now = new Date();
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('todayDate').textContent = now.toLocaleDateString('fr-FR', options);
+            document.getElementById('todayDate').innerHTML = '<i class="far fa-calendar-alt" style="margin-right:6px;"></i> ' + now.toLocaleDateString('fr-FR', options);
         }
         updateDate();
 
-        // Navigation
+        // ===== NAVIGATION =====
         const menuLinks = document.querySelectorAll('.menu a');
         const frame = document.getElementById('contentFrame');
         const pageTitle = document.getElementById('pageTitle');
 
         const pageTitles = {
-            'dashboard': 'TABLEAU DE bord',
-            'employe': 'LISTE DU PERSONEL',
-            'journal': 'JOURNAL DE PRÉSENCE',
-            'ajouter': 'AJOUTER UN EMPLOYÉ'
+            'dashboard': 'Tableau de bord',
+            'employe': 'Liste du Personnel',
+            'journal': 'Journal de Présence',
+            'ajouter': 'Ajouter un Employé'
         };
 
         const pageFiles = {
             'dashboard': 'dashboard.html',
             'employe': 'Employe.html',
-            'journal': 'journal.html',
+            'journal': 'Journal.html',
             'ajouter': 'ajouter.html'
         };
 
         function navigate(page) {
-            // Mettre à jour le lien actif
             menuLinks.forEach(link => {
                 link.classList.remove('active');
                 if (link.dataset.page === page) {
@@ -266,35 +455,30 @@
                 }
             });
 
-            // Mettre à jour le titre
             if (pageTitles[page]) {
                 pageTitle.textContent = pageTitles[page];
             }
 
-            // Charger la page
             if (pageFiles[page]) {
                 frame.src = pageFiles[page];
             }
         }
 
-        // Écouter les clics
         menuLinks.forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
-                const page = this.dataset.page;
-                navigate(page);
+                navigate(this.dataset.page);
             });
         });
 
-        // Communication depuis les iframes
         window.addEventListener('message', function(event) {
             if (event.data && event.data.type === 'navigate') {
                 navigate(event.data.page);
             }
         });
 
-        // Page par défaut
         navigate('dashboard');
     </script>
+
 </body>
 </html>

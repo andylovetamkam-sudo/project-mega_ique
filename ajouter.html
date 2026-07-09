@@ -1,11 +1,545 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ajouter un Employé</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background: #f0f2f5;
+            color: #1a1a2e;
+            padding: 0;
+        }
+
+        .page-title {
+            margin-bottom: 24px;
+        }
+
+        .page-title h2 {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .page-title h2 i {
+            color: #2c3e7a;
+            margin-right: 10px;
+        }
+
+        .page-title p {
+            color: #9aa0b4;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        /* ===== FORM ===== */
+        .form-container {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #eef0f4;
+            padding: 28px 32px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px 40px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #5a6072;
+        }
+
+        .form-group label i {
+            margin-right: 6px;
+            color: #2c3e7a;
+        }
+
+        .form-group label .required {
+            color: #c62828;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 10px 14px;
+            border: 1px solid #eef0f4;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.2s;
+            background: #fafbfc;
+            color: #1a1a2e;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #2c3e7a;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(44, 62, 122, 0.1);
+            background: white;
+        }
+
+        .form-group input::placeholder {
+            color: #c0c4d0;
+        }
+
+        .form-group .hint {
+            font-size: 12px;
+            color: #9aa0b4;
+        }
+
+        /* ===== ROLE SECTION ===== */
+        .role-section {
+            grid-column: 1 / -1;
+            border-top: 1px solid #eef0f4;
+            padding-top: 20px;
+            margin-top: 4px;
+        }
+
+        .role-section .section-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 14px;
+            color: #1a1a2e;
+        }
+
+        .role-section .section-title i {
+            color: #2c3e7a;
+            margin-right: 8px;
+        }
+
+        .role-options {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .role-options label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            border: 2px solid #eef0f4;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+            font-size: 14px;
+            background: #fafbfc;
+        }
+
+        .role-options label:hover {
+            border-color: #c0c8d8;
+            background: #f0f2f8;
+        }
+
+        .role-options label input {
+            display: none;
+        }
+
+        .role-options label .role-icon {
+            font-size: 18px;
+            color: #9aa0b4;
+        }
+
+        .role-options label .role-desc {
+            font-size: 12px;
+            font-weight: 400;
+            color: #9aa0b4;
+        }
+
+        .role-options label.active {
+            border-color: #2c3e7a;
+            background: #e8edf9;
+        }
+
+        .role-options label.active .role-icon {
+            color: #2c3e7a;
+        }
+
+        /* ===== BIOMETRIC ===== */
+        .biometric-section {
+            grid-column: 1 / -1;
+            border-top: 1px solid #eef0f4;
+            padding-top: 20px;
+            margin-top: 4px;
+        }
+
+        .biometric-section .section-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 14px;
+            color: #1a1a2e;
+        }
+
+        .biometric-section .section-title i {
+            color: #2c3e7a;
+            margin-right: 8px;
+        }
+
+        .biometric-box {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            background: #f8f9fc;
+            border-radius: 14px;
+            padding: 20px 24px;
+            border: 1px dashed #d0d4e0;
+            flex-wrap: wrap;
+        }
+
+        .biometric-box .scan-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .biometric-box .scan-area .scan-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #e8edf9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #2c3e7a;
+        }
+
+        .biometric-box .scan-area .scan-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: #2c3e7a;
+        }
+
+        .biometric-box .scan-area .scan-sub {
+            font-size: 12px;
+            color: #9aa0b4;
+        }
+
+        .biometric-box .scan-btn {
+            padding: 12px 28px;
+            background: #2c3e7a;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .biometric-box .scan-btn:hover {
+            background: #1a2a5e;
+            transform: scale(1.02);
+        }
+
+        .biometric-box .signal {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .biometric-box .signal .signal-label {
+            font-size: 13px;
+            color: #5a6072;
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .biometric-box .signal .bar {
+            width: 100%;
+            height: 6px;
+            background: #eef0f4;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .biometric-box .signal .bar .fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #4caf50, #2c3e7a);
+            border-radius: 4px;
+            transition: width 1.5s ease;
+        }
+
+        .biometric-box .signal .security-note {
+            font-size: 12px;
+            color: #9aa0b4;
+            margin-top: 6px;
+        }
+
+        .biometric-box .signal .security-note i {
+            color: #2e7d32;
+        }
+
+        /* ===== ACTIONS ===== */
+        .form-actions {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 14px;
+            justify-content: flex-end;
+            border-top: 1px solid #eef0f4;
+            padding-top: 24px;
+            margin-top: 4px;
+        }
+
+        .form-actions .btn {
+            padding: 12px 32px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-actions .btn-cancel {
+            background: #f0f2f5;
+            color: #5a6072;
+        }
+
+        .form-actions .btn-cancel:hover {
+            background: #e8eaf0;
+        }
+
+        .form-actions .btn-save {
+            background: #2c3e7a;
+            color: white;
+        }
+
+        .form-actions .btn-save:hover {
+            background: #1a2a5e;
+            transform: scale(1.02);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .form-group.full-width {
+                grid-column: 1;
+            }
+
+            .role-section,
+            .biometric-section,
+            .form-actions {
+                grid-column: 1;
+            }
+
+            .biometric-box {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .biometric-box .signal {
+                width: 100%;
+            }
+
+            .form-actions {
+                flex-direction: column-reverse;
+            }
+
+            .form-actions .btn {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .form-container {
+                padding: 18px 16px;
+            }
+
+            .role-options label {
+                flex: 1;
+                min-width: 140px;
+                justify-content: center;
+            }
+
+            .biometric-box .scan-area .scan-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <p>comme penis</p>
+
+    <!-- ===== PAGE TITLE ===== -->
+    <div class="page-title">
+        <h2><i class="fas fa-user-plus"></i> Ajouter un Nouvel Employé</h2>
+        <p><i class="fas fa-info-circle"></i> Créez un profil et enrôlez les données biométriques</p>
+    </div>
+
+    <!-- ===== FORM ===== -->
+    <div class="form-container">
+        <form class="form-grid">
+
+            <!-- ===== PERSONAL INFO ===== -->
+            <div class="form-group">
+                <label><i class="fas fa-user"></i> Nom de famille <span class="required">*</span></label>
+                <input type="text" placeholder="Ex: Martin" required>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-user"></i> Prénom <span class="required">*</span></label>
+                <input type="text" placeholder="Ex: Thomas" required>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-id-card"></i> Numéro de Matricule <span class="required">*</span></label>
+                <input type="text" placeholder="Ex: CP-2024-089" required>
+                <span class="hint"><i class="fas fa-info-circle"></i> Format: CP-YYYY-XXX</span>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-building"></i> Département <span class="required">*</span></label>
+                <select required>
+                    <option value="">Sélectionner...</option>
+                    <option>Informatique</option>
+                    <option>Ressources Humaines</option>
+                    <option>Marketing</option>
+                    <option>Finance</option>
+                    <option>Direction</option>
+                </select>
+            </div>
+
+            <div class="form-group full-width">
+                <label><i class="fas fa-envelope"></i> Adresse Email Professionnelle <span class="required">*</span></label>
+                <input type="email" placeholder="thomas.martin@entreprise.com" required>
+            </div>
+
+            <!-- ===== ROLE SECTION ===== -->
+            <div class="role-section">
+                <div class="section-title"><i class="fas fa-lock"></i> Accès & Rôles</div>
+                <div class="role-options">
+                    <label class="active">
+                        <input type="radio" name="role" checked>
+                        <span class="role-icon"><i class="fas fa-user"></i></span>
+                        <div>
+                            <div>Employé Standard</div>
+                            <div class="role-desc">Accès pointage uniquement</div>
+                        </div>
+                    </label>
+                    <label>
+                        <input type="radio" name="role">
+                        <span class="role-icon"><i class="fas fa-user-tie"></i></span>
+                        <div>
+                            <div>Manager d'Équipe</div>
+                            <div class="role-desc">Gestion des présences équipe</div>
+                        </div>
+                    </label>
+                    <label>
+                        <input type="radio" name="role">
+                        <span class="role-icon"><i class="fas fa-user-cog"></i></span>
+                        <div>
+                            <div>Administrateur</div>
+                            <div class="role-desc">Accès complet</div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- ===== BIOMETRIC ===== -->
+            <div class="biometric-section">
+                <div class="section-title"><i class="fas fa-fingerprint"></i> Enrôlement Biométrique</div>
+                <div class="biometric-box">
+                    <div class="scan-area">
+                        <div class="scan-icon"><i class="fas fa-fingerprint"></i></div>
+                        <div class="scan-text">Prêt pour l'enrôlement</div>
+                        <div class="scan-sub"><i class="fas fa-hand-paper"></i> Veuillez placer le doigt sur le capteur externe</div>
+                    </div>
+
+                    <button class="scan-btn" type="button" onclick="startScan()">
+                        <i class="fas fa-play"></i> LANCER LE SCAN
+                    </button>
+
+                    <div class="signal">
+                        <div class="signal-label">
+                            <span><i class="fas fa-wifi"></i> Qualité du signal</span>
+                            <span id="signalPercent">0%</span>
+                        </div>
+                        <div class="bar">
+                            <div class="fill" id="signalFill"></div>
+                        </div>
+                        <div class="security-note">
+                            <i class="fas fa-shield-alt"></i> L'empreinte est cryptée localement avant d'être stockée de manière sécurisée selon les normes RGPD.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== ACTIONS ===== -->
+            <div class="form-actions">
+                <button type="reset" class="btn btn-cancel"><i class="fas fa-times"></i> Annuler</button>
+                <button type="submit" class="btn btn-save"><i class="fas fa-save"></i> Enregistrer l'employé</button>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+        // ===== BIOMETRIC SCAN ANIMATION =====
+        function startScan() {
+            const fill = document.getElementById('signalFill');
+            const percent = document.getElementById('signalPercent');
+            let progress = 0;
+
+            // Reset
+            fill.style.width = '0%';
+            percent.textContent = '0%';
+
+            const interval = setInterval(() => {
+                progress += Math.random() * 8 + 2;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                }
+                fill.style.width = progress + '%';
+                percent.textContent = Math.round(progress) + '%';
+            }, 120);
+        }
+
+        // ===== ROLE SELECTION =====
+        document.querySelectorAll('.role-options label').forEach(label => {
+            label.addEventListener('click', function() {
+                document.querySelectorAll('.role-options label').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                this.querySelector('input').checked = true;
+            });
+        });
+    </script>
+
 </body>
 </html>

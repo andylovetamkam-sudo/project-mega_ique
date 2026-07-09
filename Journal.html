@@ -1,130 +1,457 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JOURNAL</title>
+    <title>Journal de Présence</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background: #f0f2f5;
+            color: #1a1a2e;
+            padding: 0;
+        }
+
+        /* ===== FILTERS ===== */
+        .filters-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            padding: 16px 20px;
+            border-radius: 14px;
+            border: 1px solid #eef0f4;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .filters-bar .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f0f2f5;
+            padding: 4px;
+            border-radius: 10px;
+        }
+
+        .filters-bar .filter-group button {
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            color: #5a6072;
+            transition: all 0.2s;
+        }
+
+        .filters-bar .filter-group button.active {
+            background: #2c3e7a;
+            color: white;
+        }
+
+        .filters-bar .filter-group button:hover:not(.active) {
+            background: #e8edf9;
+        }
+
+        .filters-bar .date-range {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: auto;
+            color: #5a6072;
+            font-size: 14px;
+        }
+
+        .filters-bar .date-range i {
+            color: #9aa0b4;
+        }
+
+        .filters-bar .date-range input {
+            border: 1px solid #eef0f4;
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 13px;
+            background: white;
+            color: #1a1a2e;
+        }
+
+        /* ===== STATS MINI ===== */
+        .stats-mini {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stats-mini .stat-item {
+            background: white;
+            border-radius: 14px;
+            padding: 16px 20px;
+            border: 1px solid #eef0f4;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .stats-mini .stat-item .icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .stats-mini .stat-item .icon.purple { background: #ede7f6; color: #512da8; }
+        .stats-mini .stat-item .icon.green { background: #e8f5e9; color: #2e7d32; }
+        .stats-mini .stat-item .icon.orange { background: #fff3e0; color: #e65100; }
+
+        .stats-mini .stat-item .info .value {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .stats-mini .stat-item .info .label {
+            font-size: 13px;
+            color: #9aa0b4;
+        }
+
+        .stats-mini .stat-item .info .change {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .stats-mini .stat-item .info .change.up { color: #2e7d32; }
+        .stats-mini .stat-item .info .change.down { color: #c62828; }
+
+        /* ===== TABLE ===== */
+        .table-container {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #eef0f4;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .table-scroll {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 14px 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #9aa0b4;
+            font-weight: 600;
+            background: #f8f9fc;
+            border-bottom: 1px solid #eef0f4;
+        }
+
+        th i {
+            margin-right: 6px;
+        }
+
+        td {
+            padding: 14px 20px;
+            border-bottom: 1px solid #f0f2f5;
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: #fafbfd;
+        }
+
+        .employee-cell {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .employee-cell .avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2c3e7a, #4a6fa5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+
+        .employee-cell .info .name {
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-badge i {
+            margin-right: 4px;
+            font-size: 11px;
+        }
+
+        .status-badge.present { background: #e8f5e9; color: #2e7d32; }
+        .status-badge.late { background: #fff3e0; color: #e65100; }
+        .status-badge.absent { background: #fce4ec; color: #c62828; }
+
+        .duration {
+            font-weight: 500;
+        }
+
+        .footer-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background: #f8f9fc;
+            border-top: 1px solid #eef0f4;
+            font-size: 13px;
+            color: #9aa0b4;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .footer-info .pagination {
+            display: flex;
+            gap: 6px;
+        }
+
+        .footer-info .pagination span {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            color: #5a6072;
+            transition: all 0.2s;
+        }
+
+        .footer-info .pagination span:hover {
+            background: #eef0f4;
+        }
+
+        .footer-info .pagination span.active {
+            background: #2c3e7a;
+            color: white;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .stats-mini {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .filters-bar .date-range {
+                margin-left: 0;
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .filters-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filters-bar .filter-group {
+                flex-wrap: wrap;
+            }
+
+            .stats-mini {
+                grid-template-columns: 1fr;
+            }
+
+            td, th {
+                padding: 10px 14px;
+                font-size: 13px;
+            }
+
+            .employee-cell .avatar {
+                width: 28px;
+                height: 28px;
+                font-size: 11px;
+            }
+
+            .footer-info {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
-
 <body>
-    <div class="first">
-        <div class="a">
-             <p>bonjour</p>
 
+    <!-- ===== FILTERS ===== -->
+    <div class="filters-bar">
+        <div class="filter-group">
+            <button class="active"><i class="fas fa-calendar-day"></i> Aujourd'hui</button>
+            <button><i class="fas fa-calendar-week"></i> Cette semaine</button>
+            <button><i class="fas fa-calendar-alt"></i> Ce mois</button>
         </div>
-        <div class="b">
-            <p>bonjour</p>
+        <div class="date-range">
+            <i class="fas fa-calendar-alt"></i>
+            <input type="date" value="2023-10-01">
+            <span>—</span>
+            <input type="date" value="2023-10-31">
         </div>
     </div>
-    <div class="second">
-        <table>
 
+    <!-- ===== STATS MINI ===== -->
+    <div class="stats-mini">
+        <div class="stat-item">
+            <div class="icon purple"><i class="fas fa-clock"></i></div>
+            <div class="info">
+                <div class="value">10h 00min</div>
+                <div class="label">Durée moyenne</div>
+            </div>
+        </div>
+        <div class="stat-item">
+            <div class="icon green"><i class="fas fa-hourglass-half"></i></div>
+            <div class="info">
+                <div class="value">1,284h</div>
+                <div class="label">Total heures</div>
+                <div class="change up"><i class="fas fa-arrow-up"></i> +12% vs mois dernier</div>
+            </div>
+        </div>
+        <div class="stat-item">
+            <div class="icon orange"><i class="fas fa-chart-line"></i></div>
+            <div class="info">
+                <div class="value">94%</div>
+                <div class="label">Taux de présence</div>
+                <div class="change up"><i class="fas fa-arrow-up"></i> +3% ce mois</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== TABLE ===== -->
+    <div class="table-container">
+        <div class="table-scroll">
+            <table>
                 <thead>
                     <tr>
-                        <th>Employé</th>
-                        <th>Poste</th>
-                        <th>Statut</th>
-                        <th>Heure</th>
-                        <th>Actions</th>
+                        <th><i class="fas fa-user"></i> Employé</th>
+                        <th><i class="fas fa-calendar-day"></i> Date</th>
+                        <th><i class="fas fa-sign-in-alt"></i> Entrée</th>
+                        <th><i class="fas fa-sign-out-alt"></i> Sortie</th>
+                        <th><i class="fas fa-hourglass-half"></i> Durée</th>
+                        <th><i class="fas fa-circle"></i> Statut</th>
                     </tr>
                 </thead>
-
                 <tbody>
-
                     <tr>
-                        <td>Dr TAMKAM</td>
-                        <td>Chef de Projet</td>
-                        <td><span class="present">Présent</span></td>
-                        <td>08:42</td>
-                        <td>⋮</td>
+                        <td>
+                            <div class="employee-cell">
+                                <div class="avatar">AD</div>
+                                <div class="info">
+                                    <div class="name">Alexandre Dubois</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>24 Oct 2023</td>
+                        <td>08:00</td>
+                        <td>17:05</td>
+                        <td><span class="duration">8h 05m</span></td>
+                        <td><span class="status-badge present"><i class="fas fa-check-circle"></i> Présent</span></td>
                     </tr>
-
                     <tr>
-                        <td>Mr CHRISTIAN</td>
-                        <td>Analyste</td>
-                        <td><span class="retard">Retard</span></td>
+                        <td>
+                            <div class="employee-cell">
+                                <div class="avatar" style="background:linear-gradient(135deg,#e65100,#f57c00);">SM</div>
+                                <div class="info">
+                                    <div class="name">Sophie Martin</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>24 Oct 2023</td>
                         <td>09:15</td>
-                        <td>⋮</td>
+                        <td>18:00</td>
+                        <td><span class="duration">7h 45m</span></td>
+                        <td><span class="status-badge late"><i class="fas fa-exclamation-triangle"></i> Retard (15m)</span></td>
                     </tr>
-
+                    <tr>
+                        <td>
+                            <div class="employee-cell">
+                                <div class="avatar" style="background:linear-gradient(135deg,#2e7d32,#43a047);">ML</div>
+                                <div class="info">
+                                    <div class="name">Marc Lemoine</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>24 Oct 2023</td>
+                        <td>08:30</td>
+                        <td>17:30</td>
+                        <td><span class="duration">9h 00m</span></td>
+                        <td><span class="status-badge present"><i class="fas fa-check-circle"></i> Présent</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="employee-cell">
+                                <div class="avatar" style="background:linear-gradient(135deg,#0d47a1,#1976d2);">IR</div>
+                                <div class="info">
+                                    <div class="name">Isabelle Roy</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>24 Oct 2023</td>
+                        <td>09:00</td>
+                        <td>18:00</td>
+                        <td><span class="duration">8h 00m</span></td>
+                        <td><span class="status-badge present"><i class="fas fa-check-circle"></i> Présent</span></td>
+                    </tr>
                 </tbody>
-
             </table>
+        </div>
 
+        <div class="footer-info">
+            <span><i class="fas fa-list-ul"></i> Affichage de 1-4 sur 128 pointages</span>
+            <div class="pagination">
+                <span><i class="fas fa-chevron-left"></i></span>
+                <span class="active">1</span>
+                <span>2</span>
+                <span>3</span>
+                <span>...</span>
+                <span>32</span>
+                <span><i class="fas fa-chevron-right"></i></span>
+            </div>
+        </div>
     </div>
-    <style>
-        body{
-            margin: 0;
-            height: 100vh;
-            display: grid;
-            place-items: center;
-                            background-color: rgb(202, 203, 204);
-
-
-            
-        }
-        .first{
-            display: flex;
-            gap: 30px;
-            background-color: rgb(202, 203, 204);
-            padding: 20px;
-        }
-        .a{
-            background-color: rgb(255, 255, 255);
-            padding: 50px;
-            width: 150px;
-            padding-bottom: 20px;
-            border-radius: 12px;
-
-
-        }
-        .b{
-            background-color: rgb(37, 22, 121);
-            padding: 50px;
-             width: 150px;
-             padding-bottom: 10px;
-             border-radius: 12px;
-             color: #fff;
-
-        }
-        .second{
-            background-color: rgb(194, 196, 197);
-        }
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-th{
-    padding:18px;
-        text-align:left;
-
-}
-
-td{
-    padding:20px 18px;
-    border-top:1px solid #bdb9b9;
-                background-color: rgb(255, 255, 255);
-
-
-}
-
-.present{
-    background:#d6f7df;
-    color:green;
-    padding:8px 16px;
-    border-radius:20px;
-}
-
-.retard{
-    background:#ffe2e2;
-    color:red;
-    padding:8px 16px;
-    border-radius:20px;
-}
-</style>
 
 </body>
-
 </html>
